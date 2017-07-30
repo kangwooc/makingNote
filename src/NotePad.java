@@ -9,7 +9,7 @@ import java.io.*;
  * Created by Kangwoo on 2017-07-24.
  */
 
-class Menu extends JPanel {
+class NotePad extends JPanel {
 
     JFrame myFrame, about_noteplus;
     JMenu menu;
@@ -20,7 +20,7 @@ class Menu extends JPanel {
     GridBagConstraints c;
     private int width, height;
 
-    public Menu() {
+    public NotePad() {
         super(new GridBagLayout());
         c = new GridBagConstraints();
         this.width = 1024;
