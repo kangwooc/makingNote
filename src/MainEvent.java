@@ -3,7 +3,7 @@
  */
 public class MainEvent {
     public static void main(String args[]) {
-        Menu menu = new Menu();
-        menu.getNewNote();
+        NotePad notepad = new NotePad();
+        NotePad.getNewNote();
     }
 }
