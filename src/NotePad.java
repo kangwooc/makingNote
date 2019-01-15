@@ -4,6 +4,7 @@ import javax.swing.filechooser.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.*;
+import java.util.HashMap;
 
 /**
  * Created by Kangwoo on 2017-07-24.
@@ -32,8 +33,6 @@ class NotePad extends JPanel {
         c.weightx = 1.0;
         c.weighty = 1.0;
         add(scrollPane, c);
-
-
     }
 
     private ActionListener new_Note() {
@@ -133,7 +132,6 @@ class NotePad extends JPanel {
     }
 
     public void getNewNote() {
-
         createMenubar();
         file_name = "New Note";
         myFrame = new JFrame(file_name);
@@ -142,7 +140,6 @@ class NotePad extends JPanel {
         myFrame.setJMenuBar(menuBar);
         myFrame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         myFrame.setVisible(true);
-
     }
 
 
@@ -173,7 +170,6 @@ class NotePad extends JPanel {
             } catch (IOException ex) {
                 JOptionPane.showConfirmDialog(null, ex.getMessage());
             }
-
         }
     }
 
@@ -193,7 +189,6 @@ class NotePad extends JPanel {
             } catch (IOException ex) {
                 JOptionPane.showConfirmDialog(null, ex.getMessage());
             }
-
         }
 
     }
@@ -214,9 +209,5 @@ class NotePad extends JPanel {
         about_noteplus.add(textField);
         about_noteplus.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         about_noteplus.setVisible(true);
-
-
     }
-
-
 }
