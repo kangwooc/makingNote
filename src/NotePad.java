@@ -8,10 +8,10 @@ import java.util.HashMap;
 
 /**
  * Created by Kangwoo on 2017-07-24.
+ * Edited on 2019-01-15
  */
 
 class NotePad extends JPanel {
-
     JFrame myFrame, about_noteplus;
     JMenu menu;
     JMenuBar menuBar;
@@ -26,9 +26,9 @@ class NotePad extends JPanel {
         c = new GridBagConstraints();
         this.width = 1024;
         this.height = 768;
-        textArea = new JTextArea(width, height);
-        textArea.setEditable(true);
-        JScrollPane scrollPane = new JScrollPane(textArea, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        this.textArea = new JTextArea(width, height);
+        this.textArea.setEditable(true);
+        JScrollPane scrollPane = new JScrollPane(this.textArea, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         c.fill = GridBagConstraints.BOTH;
         c.weightx = 1.0;
         c.weighty = 1.0;
