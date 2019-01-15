@@ -33,6 +33,7 @@ class NotePad extends JPanel {
         c.weightx = 1.0;
         c.weighty = 1.0;
         add(scrollPane, c);
+        getNewNote();
     }
 
     private ActionListener new_Note() {
@@ -71,7 +72,15 @@ class NotePad extends JPanel {
         ActionListener exit = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ask_saveornot();
+                int choice = JOptionPane.showConfirmDialog(null, "Save the File?");
+                if (choice == JOptionPane.YES_OPTION) {
+                    save();
+                    System.exit(0);
+                } else if (choice == JOptionPane.NO_OPTION) {
+                    System.exit(0);
+                } else {
+                    myFrame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+                }
             }
         };
         return exit;
@@ -95,31 +104,10 @@ class NotePad extends JPanel {
         menu.setMnemonic(KeyEvent.VK_A);
         menu.getAccessibleContext().setAccessibleDescription("The menu in this program that can open and save the file");
         menuBar.add(menu); // a group of JMenuItems
-        JMenuItem menuItem = new JMenuItem("New Note", KeyEvent.VK_T);
-        // menuItem.setMnemonic(KeyEvent.VK_T); //used constructor instead
-        menuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N, ActionEvent.CTRL_MASK));
-        menuItem.getAccessibleContext().setAccessibleDescription("This makes a new note");
-        menuItem.addActionListener(new_Note());
-        menu.add(menuItem);
-
-        JMenuItem menuItem1 = new JMenuItem("Open Note", KeyEvent.VK_T);
-        menuItem1.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, ActionEvent.SHIFT_MASK));
-        menuItem1.getAccessibleContext().setAccessibleDescription("This opens the note");
-        menuItem1.addActionListener(open_File());
-        menu.add(menuItem1);
-
-        JMenuItem menuItem2 = new JMenuItem("Save Note", KeyEvent.VK_T);
-        menuItem2.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, ActionEvent.CTRL_MASK));
-        menuItem2.getAccessibleContext().setAccessibleDescription("This saves the note");
-        menuItem2.addActionListener(save_File());
-        menu.add(menuItem2);
-
-        JMenuItem menuItem3 = new JMenuItem("Exit", KeyEvent.VK_T);
-        menuItem3.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Q, ActionEvent.SHIFT_MASK));
-        menuItem3.getAccessibleContext().setAccessibleDescription("Close the note");
-        menuItem3.addActionListener(exit_File());
-        menu.add(menuItem3);
-
+        createMenuItem("This makes a new note", "New Note", KeyEvent.VK_N, ActionEvent.CTRL_MASK, menu);
+        createMenuItem("This opens existed note","Open Note",KeyEvent.VK_O, ActionEvent.SHIFT_MASK, menu);
+        createMenuItem("This saves the note","Save Note",KeyEvent.VK_S, ActionEvent.CTRL_MASK, menu);
+        createMenuItem("Close the current note","Exit",KeyEvent.VK_Q, ActionEvent.SHIFT_MASK, menu);
         menu = new JMenu("Help");
         menu.setMnemonic(KeyEvent.VK_N);
         menu.getAccessibleContext().setAccessibleDescription("The only menu in this program that has menu items");
@@ -131,28 +119,36 @@ class NotePad extends JPanel {
         menu.add(menuItem4);
     }
 
+    private void createMenuItem(String desc, String item, int key, int action, JMenu menu) {
+        JMenuItem menuItem = new JMenuItem(item, KeyEvent.VK_T);
+        menuItem.setAccelerator(KeyStroke.getKeyStroke(key, action));
+        menuItem.getAccessibleContext().setAccessibleDescription(desc);
+        switch (item) {
+            case "New Note":
+                menuItem.addActionListener(new_Note());
+                break;
+            case "Open Note":
+                menuItem.addActionListener(open_File());
+                break;
+            case "Save Note":
+                menuItem.addActionListener(save_File());
+                break;
+            case "Exit":
+                menuItem.addActionListener(exit_File());
+                break;
+        }
+        menu.add(menuItem);
+    }
+
     public void getNewNote() {
         createMenubar();
         file_name = "New Note";
         myFrame = new JFrame(file_name);
         myFrame.setSize(width, height);
-        myFrame.add(new Menu());
+        myFrame.add(new JMenu());
         myFrame.setJMenuBar(menuBar);
         myFrame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         myFrame.setVisible(true);
-    }
-
-
-    private void ask_saveornot() {
-        int choice = JOptionPane.showConfirmDialog(null, "Save the File?");
-        if (choice == JOptionPane.YES_OPTION) {
-            save();
-            System.exit(0);
-        } else if (choice == JOptionPane.NO_OPTION) {
-            System.exit(0);
-        } else {
-            myFrame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-        }
     }
 
     private void open() {
@@ -166,7 +162,6 @@ class NotePad extends JPanel {
             try {
                 myFrame.setTitle(f.getName().replaceAll(".txt", ""));
                 textArea.read(new FileReader(f.getAbsolutePath()), null);
-
             } catch (IOException ex) {
                 JOptionPane.showConfirmDialog(null, ex.getMessage());
             }
@@ -190,7 +185,6 @@ class NotePad extends JPanel {
                 JOptionPane.showConfirmDialog(null, ex.getMessage());
             }
         }
-
     }
 
     private void about_noteplus() {
