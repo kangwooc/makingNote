@@ -1,10 +1,8 @@
-
 import javax.swing.*;
 import javax.swing.filechooser.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.*;
-import java.util.HashMap;
 
 /**
  * Created by Kangwoo on 2017-07-24.
@@ -33,7 +31,6 @@ class NotePad extends JPanel {
         c.weightx = 1.0;
         c.weighty = 1.0;
         add(scrollPane, c);
-        getNewNote();
     }
 
     private ActionListener new_Note() {
@@ -145,7 +142,7 @@ class NotePad extends JPanel {
         file_name = "New Note";
         myFrame = new JFrame(file_name);
         myFrame.setSize(width, height);
-        myFrame.add(new JMenu());
+        myFrame.add(new NotePad());
         myFrame.setJMenuBar(menuBar);
         myFrame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         myFrame.setVisible(true);
